@@ -9,11 +9,17 @@ typedef struct astNode {
 
 typedef struct abstractSyntaxTree {
   astNode * root;
-  astNode * leaves;
+  astNode ** leaves;
+  int size;
 } ast;
 
-ast * newAST (int size);
+char * validateInput (char * input);
 
-int integrationParser (ast * input, int bound);
+ast * newAST (int size);
+int freeAst (ast * freedAst);
+int resizeAst (ast * resizedAst, int newSize);
+int populateAst (char * input, ast * tree);
+
+int integrate (char * input, int bound);
 
 #endif
