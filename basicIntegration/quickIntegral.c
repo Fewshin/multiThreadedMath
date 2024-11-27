@@ -9,9 +9,12 @@ int main (int argc, char* argv[]) {
   return 0;
 }
 
-char * validateInput (char * input) { //validates the homogenizes inputs for processing
+char * validateInput (char * input) { //validates the homogenizes inputs for processing. NOTE: Allocates Memory
   //TODO: Validate the input formula
-  return input;
+
+  char * cleanedInput = malloc(sizeof(char));
+
+  return cleanedInput;
 }
 
 ast * newAST (int size) { //initializes the Abstract Syntax Tree
@@ -79,7 +82,7 @@ int populateAst (char * input, ast * tree) { //parses the input formula to popul
           openParen--;
 
         } else if (input[i + j + 1] == ')' && openParen == 1) { //final closing parenthesis has been detected, feed the enclosed string back into the function using recursion.
-          populateAst(buffer, buffAst);
+          populateAst(buffer, buffAst); //TODO: Parallelize this process.
           i = i + j;
           break;
 
@@ -88,10 +91,14 @@ int populateAst (char * input, ast * tree) { //parses the input formula to popul
 
         }
       }
-      
+
+      //TODO: Build the sections of the tree contained by parenthesis by building them as their own tree and merging them into the parent tree. 
+
+
+      //WARNING: MEMORY LEAKS POSSIBLE. Merge new nodes into the parent tree and connect root to appropriate node. 
       free(buffAst);
       free(buffer);
-      
+
     } else if (1) {
 
     } 
@@ -100,10 +107,65 @@ int populateAst (char * input, ast * tree) { //parses the input formula to popul
   return 0;
 }
 
+void * resolveAst (ast * tree, varTable * key) { //solves the AST by substituting in the appropriate values. Use DFS.
+  return;
+}
+
+char * solveAnti (char * input) { //Solves the anti-derivative. Note: Allocates Memory.
+  //TODO: Convert input into the anti-derivative. 
+  char * antiDerivative = malloc(sizeof(char));
+
+  return antiDerivative;
+}
+
+void * createVarTable (varTable * table, char initVar, int initVal) {
+  table = malloc(sizeof(varTable));
+
+  //TODO: Evaluate the best way to create the variable table. 
+
+  pthread_t tid;
+  pthread_create(&tid, NULL, expandVarTable(initVar, initVal), NULL);
+  pthread_join(tid, NULL);
+}
+
+void * expandVarTable (char variable, int value) {
+
+}
+
+void * freeVarTable (varTable * table) {
+
+}
+
 int integrate (char * input, int leftBound, int rightBound) { //solves the integral
   int result = 0;
-  //TODO: Do a reverse integral on the input, substitute in the bounds, feed the problems into two different ASTs, and solve the problems. 
+  //TODO: Find the anti-derivative of the input, substitute in the bounds, feed the problems into two different ASTs, and solve the problems. 
 
+  char * cleanedInput = validateInput(input);
+  if (cleanedInput == "Invalid Input") {
+    printf("Invalid Input: %s\n", input);
+    free(cleanedInput);
+    return 0;
+  }
 
+  char * antiDeriative = solveAnti(cleanedInput);
+  ast * antiTree = newAST(1); //TODO: System for determining the number of leaves in the tree
+  if (populateAst(antiDeriative, antiTree) == -1) {
+    printf("Failed to populate the abstract syntax tree\n");
+    goto exit;
+  }
+
+  pthread_t leftThread;
+  pthread_create(&leftThread, NULL, resolveAst(antiTree, NULL), NULL);
+
+  pthread_t rightThread;
+  pthread_create(&rightThread, NULL, resolveAst(antiTree, NULL), NULL);
+
+  pthread_join(leftThread, NULL);
+  pthread_join(rightThread, NULL);
+
+  exit:
+  freeAst(antiTree);
+  free(antiDeriative);
+  free(cleanedInput);
   return result;
 }
