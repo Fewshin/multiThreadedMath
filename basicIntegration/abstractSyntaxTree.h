@@ -13,6 +13,11 @@ typedef struct abstractSyntaxTree {
   int size;
 } ast;
 
+typedef struct xVariable {
+  char symbol;
+  int value;
+} xVar;
+
 char * validateInput (char * input);
 
 ast * newAST (int size);
@@ -20,6 +25,6 @@ int freeAst (ast * freedAst);
 int resizeAst (ast * resizedAst, int newSize);
 int populateAst (char * input, ast * tree);
 
-int integrate (char * input, int bound);
+int integrate (char * input, int leftBound, int rightBound);
 
 #endif
