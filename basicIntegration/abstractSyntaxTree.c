@@ -3,7 +3,6 @@
 #include <pthread.h>
 #include <string.h>
 #include "abstractSyntaxTree.h"
-#include "varTable.c"
 
 char * validateInput (char * input) { //validates the homogenizes inputs for processing. NOTE: Allocates Memory
   //TODO: Validate the input formula

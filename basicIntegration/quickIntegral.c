@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
-#include "abstractSyntaxTree.c"
-#include "varTable.c"
+#include "abstractSyntaxTree.h"
+#include "varTable.h"
+#include "quickIntegral.h"
 
 int main (int argc, char* argv[]) {
 

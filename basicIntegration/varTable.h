@@ -12,9 +12,9 @@ typedef struct varTable {
 } varTable;
 
 
-void * createVarTable (varTable * table, char initVar, int initVal, int * res); //create the variable table
-void * expandVarTable (varTable * table, char variable, int value, int * res); //add a value to the variable table
-void * editVarTable (varTable * table, char variable, int value, int * res); //edit a value in the variable table
-void * freeVarTable (varTable * table, int * res); //free the memory allocated by the variable table
+inline void * createVarTable (varTable * table, char initVar, int initVal, int * res); //create the variable table
+inline void * expandVarTable (varTable * table, char variable, int value, int * res); //add a value to the variable table
+inline void * editVarTable (varTable * table, char variable, int value, int * res); //edit a value in the variable table
+inline void * freeVarTable (varTable * table, int * res); //free the memory allocated by the variable table
 
 #endif

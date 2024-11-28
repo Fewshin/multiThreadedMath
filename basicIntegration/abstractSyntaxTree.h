@@ -10,9 +10,9 @@ typedef struct xVariable {
 } xVar;
 
 typedef struct astNode {
-  astNode * leftNode;
-  astNode * rightNode;
-  astNode * parentNode;
+  void * leftNode;
+  void * rightNode;
+  void * parentNode;
   xVar value;
 } astNode;
 
@@ -22,12 +22,12 @@ typedef struct abstractSyntaxTree {
   int size;
 } ast;
 
-char * validateInput (char * input); //validates the input of the program and adjusts it to ensure AST functions work consistently.
+inline char * validateInput (char * input); //validates the input of the program and adjusts it to ensure AST functions work consistently.
 
-ast * newAST (int size); //creates the AST
-int freeAst (ast * freedAst); //frees the AST
-int resizeAst (ast * resizedAst, int newSize); //resizes the AST
-int populateAst (char * input, ast * tree); //populates the AST with input cleaned from the input validation function.
-void * resolveAst (ast * tree, varTable * key, int * res); //solves the AST.
+inline ast * newAST (int size); //creates the AST
+inline int freeAst (ast * freedAst); //frees the AST
+inline int resizeAst (ast * resizedAst, int newSize); //resizes the AST
+inline int populateAst (char * input, ast * tree); //populates the AST with input cleaned from the input validation function.
+inline void * resolveAst (ast * tree, varTable * key, int * res); //solves the AST.
 
 #endif
